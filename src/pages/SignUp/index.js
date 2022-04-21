@@ -4,7 +4,9 @@ import Logo from '../../components/Logo';
 import Title from '../../components/Title';
 import { Form, Input, Buttons } from '../../components/Form';
 import StyledLink from '../../components/StyledLink';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
     const [userData, setUserData] = useState({
@@ -13,9 +15,19 @@ function SignUp() {
 	});
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [input, setInput] = useState(true);
+	const [disabled, setDisabled] = useState(false);
+	const [loading, setLoading] = useState(false);
+	let navigate =  useNavigate();
 
     function handleInput(e) {
 		setUserData({ ...userData, [e.target.name]: e.target.value });
+	}
+
+	function registerError(error) {
+		alert(error.response.data);
+		setInput(true);
+		setDisabled(false);
+		setLoading(false)
 	}
 
     function register(e) {
@@ -25,8 +37,15 @@ function SignUp() {
             alert('Senhas não conferem!');
             return;
         }
+		
+		const promise = api.createUser({...userData});
 
-        setInput(false);
+		setInput(false);
+		setDisabled(true);
+		setLoading(true);
+
+		promise.then(() => navigate("/"))
+		promise.catch(error => registerError(error));
 	}
 
 	return (
@@ -59,11 +78,18 @@ function SignUp() {
 						onChange={(e) => setPasswordConfirm(e.target.value)}
 						value={passwordConfirm}
 					/>
+					<Buttons>
+						<StyledLink to='/'>Já possuo cadastro</StyledLink>
+						<LoadingButton
+							type='submit'
+							variant='contained'
+							disabled={disabled}
+							loading={loading}
+						>
+							CADASTRAR
+						</LoadingButton>
+					</Buttons>
 				</form>
-				<Buttons>
-					<StyledLink to='/'>Já possuo cadastro</StyledLink>
-					<Button variant='contained'>CADASTRAR</Button>
-				</Buttons>
 			</Form>
 		</Container>
 	);
