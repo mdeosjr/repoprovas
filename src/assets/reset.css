@@ -36,6 +36,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: 'Poppins', sans-serif;
+  background-color: #FAFAFA;
 }
 
 /* A elements that don't have a class get default styles */
