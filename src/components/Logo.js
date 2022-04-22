@@ -1,15 +1,15 @@
 import logo from '../assets/images/logo.svg';
 import styled from 'styled-components';
 
-function Logo() {
-    return <Image src={logo} alt="logo"/>
+function Logo({mainPage}) {
+    return <Image mainPage={mainPage} src={logo} alt="logo"/>
 }
 
 const Image = styled.img`
-	width: 292px;
-	height: 64px;
+	width: ${(props) => (props.mainPage ? '218px' : '292px')};
+	height: ${(props) => (props.mainPage ? '45px' : '64px')};
 
-	margin-top: 55px;
+	margin-top: ${(props) => (props.mainPage ? '0px' : '55px')};
 `;
 
 export default Logo;

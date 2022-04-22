@@ -36,7 +36,7 @@ function Login() {
 	function loginSucess(response) {
 		localStorage.setItem('auth', JSON.stringify(response.data));
 		setAuth(response.data)
-		navigate('/sign-up');
+		navigate('/home');
 	}
 
 	function loginError(error) {
@@ -76,6 +76,7 @@ function Login() {
 						<StyledLink to='/sign-up'>Não possuo cadastro</StyledLink>
 						<LoadingButton
 							type='submit'
+							size='medium'
 							variant='contained'
 							disabled={disabled}
 							loading={loading}
