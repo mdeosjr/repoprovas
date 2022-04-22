@@ -1,20 +1,34 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from './Logo';
+import useAuth from '../hooks/useAuth';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import TextField from '@mui/material/TextField';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import api from '../services/api';
 
 function Header({mainPage}) {
     const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
+	const { auth, setAuth } = useAuth();
+	let navigate =  useNavigate();
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+	const logout = () => {
+		api.logout(auth);
+		localStorage.removeItem('auth');
+		setAuth(null);
+		navigate('/');
+	};
 
     return (
 			<Container>
@@ -37,7 +51,7 @@ function Header({mainPage}) {
 							'aria-labelledby': 'basic-button',
 						}}
 					>
-						<MenuItem onClick={handleClose}>Logout</MenuItem>
+						<MenuItem onClick={logout}>Logout</MenuItem>
 					</Menu>
 				</LogoContainer>
 				<TextField

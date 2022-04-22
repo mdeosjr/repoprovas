@@ -14,9 +14,3 @@ export function AuthProvider({ children }) {
 }
 
 export default AuthContext;
-
-
-<>
-	{'pessoa instrutora' && <></>}
-	{'disciplinas' && <></>}
-</>

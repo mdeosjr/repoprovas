@@ -19,9 +19,15 @@ async function login(data) {
 	return token;
 }
 
+async function logout(token) {
+	const config = createConfig(token);
+	return axios.post(`${BASE_URL}/logout`, {}, config);
+}
+
 const api = {
 	createUser,
-	login
+	login,
+	logout
 } 
 
 export default api;
