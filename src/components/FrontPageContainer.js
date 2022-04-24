@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+const FrontPageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -10,4 +10,4 @@ const Container = styled.div`
 	height: 100vh;
 `;
 
-export default Container;
+export default FrontPageContainer;

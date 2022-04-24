@@ -24,10 +24,16 @@ async function logout(token) {
 	return axios.post(`${BASE_URL}/logout`, {}, config);
 }
 
-const api = {
+async function getTeachersContent(token) {
+	const config = createConfig(token);
+	return axios.get(`${BASE_URL}/content/teachers`, config)
+}
+
+const api = {	
 	createUser,
 	login,
-	logout
+	logout,
+	getTeachersContent
 } 
 
 export default api;

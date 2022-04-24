@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '../../components/Container';
+import FrontPageContainer from '../../components/FrontPageContainer';
 import Logo from '../../components/Logo';
 import Title from '../../components/Title';
 import { Form, Input, Buttons } from '../../components/Form';
@@ -51,7 +51,7 @@ function Login() {
 	}
 
 	return (
-		<Container>
+		<FrontPageContainer>
 			<Logo />
 			<Form>
 				<Title>Login</Title>
@@ -86,7 +86,7 @@ function Login() {
 					</Buttons>
 				</form>
 			</Form>
-		</Container>
+		</FrontPageContainer>
 	);
 }
 

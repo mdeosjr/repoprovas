@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Container from '../../components/Container';
+import FrontPageContainer from '../../components/FrontPageContainer';
 import Logo from '../../components/Logo';
 import Title from '../../components/Title';
 import { Form, Input, Buttons } from '../../components/Form';
@@ -49,7 +49,7 @@ function SignUp() {
 	}
 
 	return (
-		<Container>
+		<FrontPageContainer>
 			<Logo />
 			<Form>
 				<Title>Cadastro</Title>
@@ -91,7 +91,7 @@ function SignUp() {
 					</Buttons>
 				</form>
 			</Form>
-		</Container>
+		</FrontPageContainer>
 	);
 }
 
