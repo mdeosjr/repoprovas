@@ -3,7 +3,7 @@ import {
 	Accordion,
 	AccordionDetails,
 	AccordionSummary,
-	Link
+	Link,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import api from '../services/api';
@@ -19,6 +19,7 @@ function TeachersContent() {
 			setContent(response.data);
 		});
 	}, [auth]);
+	console.log(content);
 
 	return (
 		<>
@@ -39,12 +40,13 @@ function TeachersContent() {
 												fontSize: 14,
 												fontFamily: 'Poppins',
 												color: '#808080',
-												cursor:'pointer'
+												cursor: 'pointer',
 											}}
 											key={category.id}
 											href={test.pdfUrl}
 											underline='hover'
 											target='_blank'
+											rel='noopener'
 										>
 											{test.name} - (
 											{test.teachersDisciplines.disciplines.name})

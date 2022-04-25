@@ -24,7 +24,7 @@ function MainPage() {
 
 	return (
 		<>
-			<Header mainPage={true} />
+			<Header mainPage={true} label={value}/>
 			<MainPageContainer>
 				<ButtonGroup value={value} setValue={setValue} />
 				{value === 'disciplinas' && <TermsContent />}

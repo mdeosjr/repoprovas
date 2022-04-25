@@ -9,7 +9,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import api from '../services/api';
 
-function Header({mainPage}) {
+function Header({mainPage, label}) {
     const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const { auth, setAuth } = useAuth();
@@ -56,7 +56,7 @@ function Header({mainPage}) {
 				</LogoContainer>
 				<TextField
 					sx={{ width: 464, height: 56 }}
-					label='Pesquise por disciplina'
+					label={`Pesquisar por ${label}`}
 				/>
 			</Container>
 		);
