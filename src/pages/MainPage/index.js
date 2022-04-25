@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MainPageContainer from "../../components/MainPageContainer";
 import ButtonGroup from "../../components/ButtonGroup";
 import Header from "../../components/Header";
-import DisciplinesContent from "../../components/DisciplinesContent";
+import TermsContent from "../../components/TermsContent";
 import TeachersContent from "../../components/TeachersContent";
 
 function MainPage() {
@@ -13,7 +13,7 @@ function MainPage() {
 				<Header mainPage={true} />
 				<MainPageContainer>
 					<ButtonGroup value={value} setValue={setValue} />
-					{value === 'disciplinas' && <DisciplinesContent />}
+					{value === 'disciplinas' && <TermsContent />}
 					{value === 'instrutores' && <TeachersContent />}
 				</MainPageContainer>
 			</>

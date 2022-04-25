@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionSummary,
+	Typography,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import api from '../services/api';
 import useAuth from '../hooks/useAuth';
@@ -15,8 +20,6 @@ function TeachersContent() {
 		});
 	}, [auth]);
 
-	console.log(content);
-
 	return (
 		<>
 			{content.map((content) => (
@@ -24,18 +27,28 @@ function TeachersContent() {
 					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 						{content.instructorName}
 					</AccordionSummary>
-					{content.categories.map((category) => (
-						<AccordionDetails key={category.id}>
-							{category.name}
-							<br />
-							{category.tests.map((test) => (
-								<p key={category.id}>
-									{test.name} - 
-									({test.teachersDisciplines.disciplines.name})
-								</p>
-							))}
-						</AccordionDetails>
-					))}
+					{content.categories.map(
+						(category) =>
+							category.tests.length !== 0 && (
+								<AccordionDetails sx={{ px: 4 }} key={category.id}>
+									{category.name}
+									<br />
+									{category.tests.map((test) => (
+										<Typography
+											sx={{
+												fontSize: 14,
+												fontFamily: 'Poppins',
+												color: '#808080',
+											}}
+											key={category.id}
+										>
+											{test.name} - (
+											{test.teachersDisciplines.disciplines.name})
+										</Typography>
+									))}
+								</AccordionDetails>
+							)
+					)}
 				</Accordion>
 			))}
 		</>

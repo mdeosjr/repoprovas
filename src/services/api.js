@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:4000'
+const BASE_URL = 'http://localhost:4000';
 
 function createConfig(token) {
 	return {
@@ -26,14 +26,20 @@ async function logout(token) {
 
 async function getTeachersContent(token) {
 	const config = createConfig(token);
-	return axios.get(`${BASE_URL}/content/teachers`, config)
+	return axios.get(`${BASE_URL}/content/teachers`, config);
 }
 
-const api = {	
+async function getTermsContent(token) {
+	const config = createConfig(token);
+	return axios.get(`${BASE_URL}/content/terms`, config);
+}
+
+const api = {
 	createUser,
 	login,
 	logout,
-	getTeachersContent
-} 
+	getTeachersContent,
+	getTermsContent,
+};
 
 export default api;
