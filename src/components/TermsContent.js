@@ -3,7 +3,7 @@ import {
 	Accordion,
 	AccordionDetails,
 	AccordionSummary,
-	Typography,
+	Link
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import api from '../services/api';
@@ -19,8 +19,6 @@ function TermsContent() {
 			setContent(response.data);
 		});
 	}, [auth]);
-
-	console.log(content);
 
 	return (
 		<>
@@ -45,17 +43,22 @@ function TermsContent() {
 												{category.name}
 												<br />
 												{category.tests.map((t) => (
-													<Typography
+													<Link
 														sx={{
 															fontSize: 14,
 															fontFamily: 'Poppins',
 															color: '#808080',
+															cursor: 'pointer',
 														}}
-														key={t.id}
+														key={category.id}
+														href={test.pdfUrl}
+														underline='hover'
+														target='_blank'
 													>
 														{t.name} - (
 														{t.teachersDisciplines.teachers.name})
-													</Typography>
+														<br />
+													</Link>
 												))}
 											</AccordionDetails>
 										)

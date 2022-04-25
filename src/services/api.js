@@ -19,9 +19,9 @@ async function login(data) {
 	return token;
 }
 
-async function logout(token) {
+async function validateToken(token) {
 	const config = createConfig(token);
-	return axios.post(`${BASE_URL}/logout`, {}, config);
+	return axios.post(`${BASE_URL}/token`, {}, config);
 }
 
 async function getTeachersContent(token) {
@@ -37,7 +37,7 @@ async function getTermsContent(token) {
 const api = {
 	createUser,
 	login,
-	logout,
+	validateToken,
 	getTeachersContent,
 	getTermsContent,
 };

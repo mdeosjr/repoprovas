@@ -13,7 +13,7 @@ function Header({mainPage}) {
     const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const { auth, setAuth } = useAuth();
-	let navigate =  useNavigate();
+	let navigate = useNavigate();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -24,7 +24,7 @@ function Header({mainPage}) {
     };
 
 	const logout = () => {
-		api.logout(auth);
+		api.validateToken(auth);
 		localStorage.removeItem('auth');
 		setAuth(null);
 		navigate('/');

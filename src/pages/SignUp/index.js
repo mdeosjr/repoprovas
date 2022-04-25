@@ -34,7 +34,7 @@ function SignUp() {
         e.preventDefault();
 
         if (passwordConfirm !== userData.password) {
-            alert('Senhas não conferem!');
+            alert('Password does not match');
             return;
         }
 		
