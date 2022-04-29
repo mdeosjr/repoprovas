@@ -42,7 +42,7 @@ function TeachersContent() {
 												color: '#808080',
 												cursor: 'pointer',
 											}}
-											key={category.id}
+											key={test.name}
 											href={test.pdfUrl}
 											underline='hover'
 											target='_blank'
@@ -50,6 +50,7 @@ function TeachersContent() {
 										>
 											{test.name} - (
 											{test.teachersDisciplines.disciplines.name})
+											<br/>
 										</Link>
 									))}
 								</AccordionDetails>

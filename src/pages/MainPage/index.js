@@ -5,6 +5,7 @@ import ButtonGroup from '../../components/ButtonGroup';
 import Header from '../../components/Header';
 import TermsContent from '../../components/TermsContent';
 import TeachersContent from '../../components/TeachersContent';
+import AddTest from '../../components/AddTest';
 import api from '../../services/api';
 import useAuth from '../../hooks/useAuth';
 
@@ -29,6 +30,7 @@ function MainPage() {
 				<ButtonGroup value={value} setValue={setValue} />
 				{value === 'disciplinas' && <TermsContent />}
 				{value === 'instrutores' && <TeachersContent />}
+				{value === 'adicionar' && <AddTest setValue={setValue} />}
 			</MainPageContainer>
 		</>
 	);

@@ -18,7 +18,7 @@ function Login() {
 	const [disabled, setDisabled] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { setAuth } = useAuth();
-	let navigate = useNavigate();
+	let navigate = useNavigate()
 
 	function login(e) {
 		e.preventDefault();
