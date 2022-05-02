@@ -8,13 +8,20 @@ import {
 	TextField,
 	Menu,
 	MenuItem,
-	Typography
+	Typography,
+	Autocomplete,
 } from '@mui/material';
 import api from '../services/api';
 
-function Header({ mainPage, label, terms, teachers, setSearch, setDiscipline }) {
+function Header({
+	mainPage,
+	label,
+	terms,
+	teachers,
+	setSearch,
+	setDiscipline,
+}) {
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [name, setName] = useState('');
 	const open = Boolean(anchorEl);
 	const { auth, setAuth } = useAuth();
 	let navigate = useNavigate();
@@ -49,9 +56,9 @@ function Header({ mainPage, label, terms, teachers, setSearch, setDiscipline }) 
 	}
 
 	function searchedDiscipline(name) {
-		const promise = api.getDisciplinesContent(auth, name)
-		promise.then(response => setDiscipline(response.data))
-		setSearch(name)
+		const promise = api.getDisciplinesContent(auth, name);
+		promise.then((response) => setDiscipline(response.data));
+		setSearch(name);
 	}
 
 	return (
@@ -92,23 +99,18 @@ function Header({ mainPage, label, terms, teachers, setSearch, setDiscipline }) 
 					Adicione uma prova
 				</Typography>
 			) : (
-				<TextField
-					select
-					sx={{ width: 700 }}
-					label={`Procure por ${label}`}
-					onChange={(e) => setName(e.target.value)}
-					value={name}
-				>
-					{searchOptions().map((name) => (
-						<MenuItem
-							value={name}
-							key={name}
-							onClick={() => searchedDiscipline(name)}
-						>
-							{name}
-						</MenuItem>
-					))}
-				</TextField>
+				<Autocomplete
+					sx={{ width: 700, alignSelf: 'center' }}
+					freeSolo
+					options={searchOptions()}
+					onInputChange={(e, value) => {
+						setSearch(value);
+						searchedDiscipline(value);
+					}}
+					renderInput={(params) => (
+						<TextField {...params} label={`Procure por ${label}`} />
+					)}
+				/>
 			)}
 		</Container>
 	);
