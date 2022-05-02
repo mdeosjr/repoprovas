@@ -35,9 +35,19 @@ async function getTermsContent(token) {
 	return axios.get(`${BASE_URL}/content/terms`, config);
 }
 
-async function getDisciplinesContent(token) {
+async function getDisciplinesList(token) {
 	const config = createConfig(token);
 	return axios.get(`${BASE_URL}/content/disciplines`, config);
+}
+
+async function getDisciplinesContent(token, name) {
+	const config = createConfig(token);
+	return axios.get(`${BASE_URL}/content/discipline/${name}`, config);
+}
+
+async function getDisciplinesContentById(token, id) {
+	const config = createConfig(token);
+	return axios.get(`${BASE_URL}/content/disciplines/${id}`, config);
 }
 
 async function getCategoriesList(token) {
@@ -57,6 +67,8 @@ const api = {
 	getTeachersContent,
 	getTermsContent,
 	getDisciplinesContent,
+	getDisciplinesContentById,
+	getDisciplinesList,
 	getCategoriesList,
 	sendData,
 };

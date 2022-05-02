@@ -4,11 +4,17 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import useAuth from '../hooks/useAuth';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import { TextField, Menu, MenuItem, Typography } from '@mui/material';
+import {
+	TextField,
+	Menu,
+	MenuItem,
+	Typography
+} from '@mui/material';
 import api from '../services/api';
 
-function Header({ mainPage, label }) {
+function Header({ mainPage, label, terms, teachers, setSearch, setDiscipline }) {
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [name, setName] = useState('');
 	const open = Boolean(anchorEl);
 	const { auth, setAuth } = useAuth();
 	let navigate = useNavigate();
@@ -27,6 +33,26 @@ function Header({ mainPage, label }) {
 		setAuth(null);
 		navigate('/');
 	};
+
+	function searchOptions() {
+		if (label === 'disciplinas') {
+			const disciplines = [];
+
+			terms.map((term) =>
+				term.disciplines.map((d) => disciplines.push(d.name))
+			);
+
+			return disciplines;
+		}
+
+		return teachers.map((teacher) => teacher.instructorName);
+	}
+
+	function searchedDiscipline(name) {
+		const promise = api.getDisciplinesContent(auth, name)
+		promise.then(response => setDiscipline(response.data))
+		setSearch(name)
+	}
 
 	return (
 		<Container>
@@ -60,16 +86,29 @@ function Header({ mainPage, label }) {
 						fontFamily: 'Poppins',
 						fontWeight: '500',
 						letterSpacing: 0.15,
-						color: 'rgba(0, 0, 0, 0.8)'
+						color: 'rgba(0, 0, 0, 0.8)',
 					}}
 				>
 					Adicione uma prova
 				</Typography>
 			) : (
 				<TextField
-					sx={{ width: 464, height: 56 }}
-					label={`Pesquisar por ${label}`}
-				/>
+					select
+					sx={{ width: 700 }}
+					label={`Procure por ${label}`}
+					onChange={(e) => setName(e.target.value)}
+					value={name}
+				>
+					{searchOptions().map((name) => (
+						<MenuItem
+							value={name}
+							key={name}
+							onClick={() => searchedDiscipline(name)}
+						>
+							{name}
+						</MenuItem>
+					))}
+				</TextField>
 			)}
 		</Container>
 	);

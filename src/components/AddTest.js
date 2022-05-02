@@ -37,7 +37,7 @@ function AddTest({setValue}) {
 			setTeachers(response.data);
 		});
 
-		const disciplinesContent = api.getDisciplinesContent(auth);
+		const disciplinesContent = api.getDisciplinesList(auth);
 		disciplinesContent.then((response) => {
 			setDisciplines(response.data);
 		});

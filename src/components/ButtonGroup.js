@@ -1,6 +1,6 @@
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 
-function ButtonGroup({ value, setValue }) {
+function ButtonGroup({ value, setValue, setSearch }) {
 	const handleValue = (event, newValue) => {
 		if (newValue !== null) {
 			setValue(newValue);
@@ -20,9 +20,15 @@ function ButtonGroup({ value, setValue }) {
 			exclusive
 			onChange={handleValue}
 		>
-			<ToggleButton value='disciplinas'>DISCIPLINAS</ToggleButton>
-			<ToggleButton value='instrutores'>PESSOAS INSTRUTORAS</ToggleButton>
-			<ToggleButton value='adicionar'>ADICIONAR</ToggleButton>
+			<ToggleButton value='disciplinas' onClick={() => setSearch('')}>
+				DISCIPLINAS
+			</ToggleButton>
+			<ToggleButton value='instrutores' onClick={() => setSearch('')}>
+				PESSOAS INSTRUTORAS
+			</ToggleButton>
+			<ToggleButton value='adicionar'>
+				ADICIONAR
+			</ToggleButton>
 		</ToggleButtonGroup>
 	);
 }
