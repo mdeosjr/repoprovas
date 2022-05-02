@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Accordion, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import api from '../../services/api';
@@ -7,13 +7,14 @@ import AccordionDetailsComponent from '../TeachersContent/AccordionDetailsCompon
 
 function TeachersContent({ teachersContent, setTeachersContent, search }) {
 	const { auth } = useAuth();
+	const [attHook, setAttHook] = useState(false);
 
 	useEffect(() => {
 		const promise = api.getTeachersContent(auth);
 		promise.then((response) => {
 			setTeachersContent(response.data);
 		});
-	}, [auth, setTeachersContent]);
+	}, [auth, setTeachersContent, attHook]);
 
 	return (
 		<>
@@ -27,6 +28,7 @@ function TeachersContent({ teachersContent, setTeachersContent, search }) {
 								</AccordionSummary>
 								<AccordionDetailsComponent
 									categoriesInfo={content.categories}
+									setAttHook={setAttHook}
 								/>
 							</Accordion>
 						))
@@ -37,6 +39,7 @@ function TeachersContent({ teachersContent, setTeachersContent, search }) {
 							</AccordionSummary>
 							<AccordionDetailsComponent
 								categoriesInfo={content.categories}
+								setAttHook={setAttHook}
 							/>
 						</Accordion>
 				  ))}

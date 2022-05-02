@@ -4,6 +4,8 @@ import {
 	AccordionDetails,
 	AccordionSummary,
 	Link,
+	Typography,
+	Box,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import api from '../../services/api';
@@ -12,6 +14,7 @@ import useAuth from '../../hooks/useAuth';
 function TermsContent({ setTermsContent, termsContent, search, discipline }) {
 	const [disciplinesContent, setDisciplinesContent] = useState([]);
 	const [expanded, setExpanded] = useState(false);
+	const [attHook, setAttHook] = useState(false);
 	const { auth } = useAuth();
 
 	const handleChange = (panel) => (event, isExpanded) => {
@@ -23,7 +26,7 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }) {
 		promise.then((response) => {
 			setTermsContent(response.data);
 		});
-	}, [auth, setTermsContent]);
+	}, [auth, setTermsContent, attHook]);
 
 	function fetchDisciplinesContent(id) {
 		const promise = api.getDisciplinesContentById(auth, id);
@@ -31,6 +34,17 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }) {
 		promise.then((response) => {
 			setDisciplinesContent(response.data);
 		});
+	}
+
+	function updateTestViews(id) {
+		api.updateTestViews(auth, id)
+			.then((res) => {
+				setAttHook(true);
+				setAttHook(false);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	}
 
 	return (
@@ -64,27 +78,48 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }) {
 													{category.name}
 													<br />
 													{category.tests.map((t) => (
-														<Link
-															sx={{
-																fontSize: 14,
-																fontFamily: 'Poppins',
-																color: '#808080',
-																cursor: 'pointer',
-															}}
+														<Box
 															key={t.id}
-															href={t.pdfUrl}
-															underline='hover'
-															target='_blank'
-															rel='noopener'
+															sx={{
+																display: 'flex',
+																justifyContent: 'space-between',
+																alignItems: 'center',
+															}}
 														>
-															{t.name} - (
-															{
-																t.teachersDisciplines.teachers
-																	.name
-															}
-															)
-															<br />
-														</Link>
+															<Link
+																sx={{
+																	fontSize: 14,
+																	fontFamily: 'Poppins',
+																	color: '#808080',
+																	cursor: 'pointer',
+																}}
+																key={t.id}
+																href={t.pdfUrl}
+																underline='hover'
+																target='_blank'
+																rel='noopener'
+																onClick={() =>
+																	updateTestViews(t.id)
+																}
+															>
+																{t.name} - (
+																{
+																	t.teachersDisciplines
+																		.teachers.name
+																}
+																)
+																<br />
+															</Link>
+															<Typography
+																sx={{
+																	fontSize: 14,
+																	fontFamily: 'Poppins',
+																	color: '#808080',
+																}}
+															>
+																{t.viewsCount} views
+															</Typography>
+														</Box>
 													))}
 												</AccordionDetails>
 											)
@@ -106,24 +141,42 @@ function TermsContent({ setTermsContent, termsContent, search, discipline }) {
 									{category.name}
 									<br />
 									{category.tests.map((t) => (
-										<Link
-											sx={{
-												fontSize: 14,
-												fontFamily: 'Poppins',
-												color: '#808080',
-												cursor: 'pointer',
-											}}
+										<Box
 											key={t.id}
-											href={t.pdfUrl}
-											underline='hover'
-											target='_blank'
-											rel='noopener'
+											sx={{
+												display: 'flex',
+												justifyContent: 'space-between',
+												alignItems: 'center',
+											}}
 										>
-											{t.name} - (
-											{t.teachersDisciplines.teachers.name}
-											)
-											<br />
-										</Link>
+											<Link
+												sx={{
+													fontSize: 14,
+													fontFamily: 'Poppins',
+													color: '#808080',
+													cursor: 'pointer',
+												}}
+												key={t.id}
+												href={t.pdfUrl}
+												underline='hover'
+												target='_blank'
+												rel='noopener'
+												onClick={() => updateTestViews(t.id)}
+											>
+												{t.name} - (
+												{t.teachersDisciplines.teachers.name})
+												<br />
+											</Link>
+											<Typography
+												sx={{
+													fontSize: 14,
+													fontFamily: 'Poppins',
+													color: '#808080',
+												}}
+											>
+												{t.viewsCount} views
+											</Typography>
+										</Box>
 									))}
 								</AccordionDetails>
 							)

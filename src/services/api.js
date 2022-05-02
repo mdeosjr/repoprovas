@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://repoprovas-ts-api.herokuapp.com';
-//const BASE_URL = 'http://localhost:4000';
+//const BASE_URL = 'https://repoprovas-ts-api.herokuapp.com';
+const BASE_URL = 'http://localhost:4000';
 
 function createConfig(token) {
 	return {
@@ -60,6 +60,11 @@ async function sendData(token, data) {
 	return axios.post(`${BASE_URL}/tests/create`, data, config);
 }
 
+async function updateTestViews(token, id) {
+	const config = createConfig(token);
+	return axios.patch(`${BASE_URL}/test/${id}`, {}, config);
+}
+
 const api = {
 	createUser,
 	login,
@@ -71,6 +76,7 @@ const api = {
 	getDisciplinesList,
 	getCategoriesList,
 	sendData,
+	updateTestViews
 };
 
 export default api;
